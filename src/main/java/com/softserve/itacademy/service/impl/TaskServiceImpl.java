@@ -14,7 +14,7 @@ import java.util.*;
 @Service
 public class TaskServiceImpl implements TaskService {
 
-    private ToDoService toDoService;
+    private final ToDoService toDoService;
 
     private final Map<ToDo, List<Task>> tasksByToDo = new HashMap<>();
 
@@ -23,6 +23,7 @@ public class TaskServiceImpl implements TaskService {
         this.toDoService = toDoService;
     }
 
+    @Override
     public Task addTask(Task task, ToDo todo) {
         if (task == null || todo == null) {
             return null;

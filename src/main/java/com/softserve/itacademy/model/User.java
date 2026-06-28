@@ -49,8 +49,4 @@ public class User {
     public void setMyTodos(List<ToDo> myTodos) {
         this.myTodos = (myTodos == null) ? new ArrayList<>() : myTodos;
     }
-
-    public ToDo addTodo(User user, ToDo todo) {
-        return null;
-    }
 }

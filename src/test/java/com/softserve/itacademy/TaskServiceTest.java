@@ -5,8 +5,11 @@ import com.softserve.itacademy.model.Task;
 import com.softserve.itacademy.model.ToDo;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.service.TaskService;
+import com.softserve.itacademy.service.ToDoService;
+import com.softserve.itacademy.service.UserService;
 import com.softserve.itacademy.service.impl.TaskServiceImpl;
 import com.softserve.itacademy.service.impl.ToDoServiceImpl;
+import com.softserve.itacademy.service.impl.UserServiceImpl;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.junit.jupiter.api.*;
 
@@ -27,6 +30,7 @@ class TaskServiceTest {
         // register the services under test
         context.register(TaskServiceImpl.class);
         context.register(ToDoServiceImpl.class);
+        context.register(UserServiceImpl.class);
         context.refresh();
         taskService = context.getBean(TaskService.class);
     }
@@ -96,7 +100,9 @@ class TaskServiceTest {
         // Arrange
 
         ToDo t1 = new ToDo();
+        t1.setTitle("todo1");
         ToDo t2 = new ToDo();
+        t2.setTitle("todo2");
         Task task = new Task("Task 3", Priority.HIGH);
         taskService.addTask(task, t1);
         taskService.addTask(task, t2);
@@ -136,7 +142,9 @@ class TaskServiceTest {
         // Arrange
 
         ToDo todo1 = new ToDo();
+        todo1.setTitle("todo1");
         ToDo todo2 = new ToDo();
+        todo2.setTitle("todo2");
         Task t1 = new Task("A", Priority.LOW);
         Task t2 = new Task("B", Priority.MEDIUM);
         taskService.addTask(t1, todo1);
@@ -187,10 +195,21 @@ class TaskServiceTest {
     
     void getByUserName_shouldSearchAcrossUserTodos_orReturnNull() {
         // Arrange
+        UserService userService = context.getBean(UserService.class);
+        ToDoService toDoService = context.getBean(ToDoService.class);
+
         User u1 = user("u1@example.com");
         User u2 = user("u2@example.com");
+        userService.addUser(u1);
+        userService.addUser(u2);
+
         ToDo t1 = new ToDo();
+        t1.setTitle("todo1");
         ToDo t2 = new ToDo();
+        t2.setTitle("todo2");
+        toDoService.addTodo(u1, t1);
+        toDoService.addTodo(u1, t2);
+
         Task a = new Task("Alpha", Priority.LOW);
         Task b = new Task("Beta", Priority.MEDIUM);
         taskService.addTask(a, t1);
@@ -208,6 +227,8 @@ class TaskServiceTest {
     private static User user(String email) {
         User u = new User();
         u.setEmail(email);
+        u.setFirstName("First");
+        u.setLastName("Last");
         return u;
     }
 

@@ -67,7 +67,7 @@ class ToDoServiceTest {
     @Test
 
     void addTodo_shouldEnforceUniqueTitle_perOwner() {
-        User user1 = new User(null, null, "babu@gmail.com", null, new ArrayList<>());
+        User user1 = new User("Michael", "Jackson", "babu@gmail.com", "well_1234", new ArrayList<>());
         ToDo toDo = new ToDo("list", null, user1, null);
         userService.addUser(user1);
 
@@ -78,7 +78,7 @@ class ToDoServiceTest {
     @Test
 
     void updateTodo_shouldReplaceExistingByTitleWithinOwner() {
-        User user1 = new User(null, null, "babu@gmail.com", null, new ArrayList<>());
+        User user1 = new User("Michael", "Jackson", "babu@gmail.com", "well_1234", new ArrayList<>());
         ToDo toDo1 = new ToDo("list", null, user1, null);
         ToDo toDo2 = new ToDo("list", LocalDateTime.now(), user1, null);
 
@@ -92,7 +92,7 @@ class ToDoServiceTest {
 
     @Test
     void updateTodo_shouldReturnNull_whenNotFound_orInvalid() {
-        User user1 = new User(null, null, "babu@gmail.com", null, new ArrayList<>());
+        User user1 = new User("Michael", "Jackson", "babu@gmail.com", "well_1234", new ArrayList<>());
         ToDo toDo = new ToDo("list", null, user1, null);
 
         assertNull(toDoService.updateTodo(toDo));
@@ -101,7 +101,7 @@ class ToDoServiceTest {
 
     @Test
     void deleteTodo_shouldRemoveFromOwnerList() {
-        User user1 = new User(null, null, "babu@gmail.com", null, new ArrayList<>());
+        User user1 = new User("Michael", "Jackson", "babu@gmail.com", "well_1234", new ArrayList<>());
         ToDo toDo = new ToDo("list", null, user1, null);
 
         userService.addUser(user1);
@@ -121,7 +121,7 @@ class ToDoServiceTest {
 
     @Test
     void getByUser_shouldReturnCopy_orEmptyWhenNone() {
-        User user1 = new User(null, null, "babu@gmail.com", null, new ArrayList<>());
+        User user1 = new User("Michael", "Jackson", "babu@gmail.com", "well_1234", new ArrayList<>());
         ToDo toDo = new ToDo("list", null, user1, null);
         List<ToDo> toDoList = toDoService.getByUser(user1);
 
@@ -135,7 +135,7 @@ class ToDoServiceTest {
 
     @Test
     void getByUserTitle_shouldReturnToDo_orNull() {
-        User user1 = new User(null, null, "babu@gmail.com", null, new ArrayList<>());
+        User user1 = new User("Michael", "Jackson", "babu@gmail.com", "well_1234", new ArrayList<>());
         ToDo toDo = new ToDo("list", null, user1, null);
 
         userService.addUser(user1);

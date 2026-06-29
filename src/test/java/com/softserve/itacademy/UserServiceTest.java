@@ -120,6 +120,8 @@ class UserServiceTest {
     private static User user(String email) {
         User u = new User();
         u.setEmail(email);
+        u.setFirstName("First");
+        u.setLastName("Last");
         return u;
     }
 }
